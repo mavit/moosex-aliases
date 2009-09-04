@@ -28,11 +28,13 @@ has aliased_from => (
 
 no Moose::Role;
 
-=head1 AUTHOR
+=head1 AUTHORS
 
   Jesse Luehrs <doy at tozt dot net>
 
   Chris Prather (chris@prather.org)
+
+  Justin Hunter <justin.d.hunter at gmail dot com>
 
 =head1 COPYRIGHT AND LICENSE
 
