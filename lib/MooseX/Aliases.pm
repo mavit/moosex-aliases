@@ -46,7 +46,8 @@ or
 
 The MooseX::Aliases module will allow you to quickly alias methods in Moose.
 It provides an alias parameter for has() to generate aliased accessors as well
-as the standard ones.
+as the standard ones. Attributes can also be initialized in the constructor via
+their aliased names.
 
 =cut
 
@@ -102,18 +103,6 @@ sub init_meta {
     );
     return Class::MOP::class_of($options{for_class});
 }
-
-=head1 TODO
-
-=over 4
-
-=item * Subsume MooseX::MultiInitArgs, make it so that init_arg can take an ArrayRef
-
-    has foo => (
-        init_arg => [qw(foo bar baz)],
-    )
-
-=back
 
 =head1 BUGS/CAVEATS
 
