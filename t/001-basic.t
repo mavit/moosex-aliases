@@ -30,7 +30,5 @@ is($called, 2, 'alias calls the original method');
 my $t2 = MyTest::Sub->new;
 $t2->foo;
 $t2->bar;
-{ local $TODO = "Aliases do not support subclassing";
 is($subclass, 2, 'subclass method called twice');
 is($called, 2, 'original method not called again');
-}
