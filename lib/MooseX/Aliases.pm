@@ -87,7 +87,9 @@ sub alias {
     Moose->throw_error("cannot find method $orig to alias") unless $method;
     $meta->add_method(
         $alias => _get_method_metaclass($method)->wrap(
-            $method,
+            sub { shift->$orig(@_) }, # goto $_[0]->can($orig) ?
+            package_name => $method->package_name,
+            name         => $alias,
             aliased_from => $orig
         )
     );
