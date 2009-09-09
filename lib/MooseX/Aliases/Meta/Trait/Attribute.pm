@@ -48,7 +48,8 @@ after install_accessors => sub {
     for my $alias ($self->alias) {
         $class_meta->add_method(
             $alias => MooseX::Aliases::_get_method_metaclass($orig_meth)->wrap(
-                $orig_meth,
+                sub { shift->$orig_name(@_) }, # goto $_[0]->can($orig_name) ?
+                package_name => $orig_meth->package_name,
                 name         => $alias,
                 aliased_from => $orig_name,
             )
