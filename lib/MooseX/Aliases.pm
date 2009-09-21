@@ -111,6 +111,8 @@ L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooseX-Aliases>.
 
 L<Moose>
 
+L<Method::Alias>
+
 =head1 SUPPORT
 
 You can find this documentation for this module with the perldoc command.
