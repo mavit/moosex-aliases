@@ -49,7 +49,7 @@ after install_accessors => sub {
         $class_meta->add_method(
             $alias => MooseX::Aliases::_get_method_metaclass($orig_meth)->wrap(
                 sub { shift->$orig_name(@_) }, # goto $_[0]->can($orig_name) ?
-                package_name => $orig_meth->package_name,
+                package_name => $class_meta->name,
                 name         => $alias,
                 aliased_from => $orig_name,
             )

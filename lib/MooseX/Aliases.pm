@@ -88,7 +88,7 @@ sub alias {
     $meta->add_method(
         $alias => _get_method_metaclass($method)->wrap(
             sub { shift->$orig(@_) }, # goto $_[0]->can($orig) ?
-            package_name => $method->package_name,
+            package_name => $caller,
             name         => $alias,
             aliased_from => $orig
         )
