@@ -1,7 +1,5 @@
 package MooseX::Aliases;
-use Moose ();
 use Moose::Exporter;
-use Moose::Util::MetaRole;
 use Scalar::Util qw(blessed);
 
 =head1 NAME
@@ -55,7 +53,10 @@ their aliased names.
 
 =cut
 
-Moose::Exporter->setup_import_methods( with_caller => ['alias'] );
+Moose::Exporter->setup_import_methods(
+    with_caller               => ['alias'],
+    attribute_metaclass_roles => ['MooseX::Aliases::Meta::Trait::Attribute'],
+);
 
 sub _get_method_metaclass {
     my ($method) = @_;
@@ -93,17 +94,6 @@ sub alias {
             aliased_from => $orig
         )
     );
-}
-
-sub init_meta {
-    shift;
-    my %options = @_;
-    Moose::Util::MetaRole::apply_metaclass_roles(
-        for_class                 => $options{for_class},
-        attribute_metaclass_roles =>
-            ['MooseX::Aliases::Meta::Trait::Attribute'],
-    );
-    return Class::MOP::class_of($options{for_class});
 }
 
 =head1 BUGS/CAVEATS
