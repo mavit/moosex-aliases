@@ -20,12 +20,12 @@ MooseX::Aliases - easy aliasing of methods and attributes in Moose
 
     sub foo { say $self->that }
     alias foo => 'bar';
-    
+
     $o = MyApp->new();
     $o->this('Hello World');
     $o->bar; # prints 'Hello World'
 
-or 
+or
 
     package MyApp::Role;
     use Moose::Role;
