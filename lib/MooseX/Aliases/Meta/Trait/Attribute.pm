@@ -73,7 +73,7 @@ around initialize_instance_slot => sub {
             push @aliases, $self->init_arg;
         }
 
-        $self->associated_metaclass->throw_error(
+        $self->associated_class->throw_error(
             'Conflicting init_args: (' . join(', ', @aliases) . ')'
         ) if @aliases > 1;
 
