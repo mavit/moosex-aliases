@@ -82,9 +82,19 @@ Gives the METHODNAME method an alias of ALIAS.
 =cut
 
 sub alias {
-    my ( $caller, $orig, $alias ) = @_;
+    my ( $caller, $alias, $orig ) = @_;
     my $meta   = Class::MOP::class_of($caller);
     my $method = $meta->find_method_by_name($orig);
+    if (!$method) {
+        $method = $meta->find_method_by_name($alias);
+        if ($method) {
+            Carp::cluck(
+                q["alias $from => $to" is deprecated, please use ]
+              . q["alias $to => $from"]
+            );
+            ($alias, $orig) = ($orig, $alias);
+        }
+    }
     Moose->throw_error("cannot find method $orig to alias") unless $method;
     $meta->add_method(
         $alias => _get_method_metaclass($method)->wrap(
