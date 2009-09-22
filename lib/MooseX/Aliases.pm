@@ -95,7 +95,7 @@ sub alias {
             ($alias, $orig) = ($orig, $alias);
         }
     }
-    Moose->throw_error("cannot find method $orig to alias") unless $method;
+    Moose->throw_error("Cannot find method $orig to alias") unless $method;
     $meta->add_method(
         $alias => _get_method_metaclass($method)->wrap(
             sub { shift->$orig(@_) }, # goto $_[0]->can($orig) ?
