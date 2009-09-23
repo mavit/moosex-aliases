@@ -18,10 +18,10 @@ MooseX::Aliases - easy aliasing of methods and attributes in Moose
         alias => 'that',
     );
 
-    sub foo { say $self->that }
-    alias foo => 'bar';
+    sub foo { my $self = shift; print $self->that }
+    alias bar => 'foo';
 
-    $o = MyApp->new();
+    my $o = MyApp->new();
     $o->this('Hello World');
     $o->bar; # prints 'Hello World'
 
@@ -29,6 +29,7 @@ or
 
     package MyApp::Role;
     use Moose::Role;
+    use MooseX::Aliases;
 
     has this => (
         isa   => 'Str',
@@ -37,13 +38,13 @@ or
         alias => 'that',
     );
 
-    sub foo { say $self->that }
-    alias foo => 'bar';
+    sub foo { my $self = shift; print $self->that }
+    alias bar => 'foo';
 
 =head1 DESCRIPTION
 
-The MooseX::Aliases module will allow you to quickly alias methods in Moose.
-It provides an alias parameter for has() to generate aliased accessors as well
+The MooseX::Aliases module will allow you to quickly alias methods in Moose. It
+provides an alias parameter for C<has()> to generate aliased accessors as well
 as the standard ones. Attributes can also be initialized in the constructor via
 their aliased names.
 
@@ -75,9 +76,9 @@ sub _get_method_metaclass {
     }
 }
 
-=head2 alias METHODNAME ALIAS
+=head2 alias ALIAS METHODNAME
 
-Gives the METHODNAME method an alias of ALIAS.
+Installs ALIAS as a method that is aliased to the method METHODNAME.
 
 =cut
 
@@ -112,6 +113,13 @@ Currently, to use MooseX::Aliased in a role, you will need to explicitly
 associate the metaclass trait with your attribute. This is because Moose won't
 automatically apply metaclass traits to attributes in roles. The example in
 L<SYNOPSIS> should work.
+
+The order of arguments for the C<alias> method has changed (as of version
+0.05). I think the new order makes more sense, and it will make future
+refactoring I have in mind easier. The old order still works (although it gives
+a deprecation warning), unless you were relying on being able to override an
+existing method with an alias - this will now override in the other direction.
+The old argument order will be removed in a future release.
 
 Please report any bugs through RT: email
 C<bug-moosex-aliases at rt.cpan.org>, or browse to
