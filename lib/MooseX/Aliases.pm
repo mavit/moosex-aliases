@@ -55,7 +55,7 @@ their aliased names.
 =cut
 
 Moose::Exporter->setup_import_methods(
-    with_caller               => ['alias'],
+    with_meta                 => ['alias'],
     attribute_metaclass_roles => ['MooseX::Aliases::Meta::Trait::Attribute'],
 );
 
@@ -83,8 +83,7 @@ Installs ALIAS as a method that is aliased to the method METHODNAME.
 =cut
 
 sub alias {
-    my ( $caller, $alias, $orig ) = @_;
-    my $meta   = Class::MOP::class_of($caller);
+    my ( $meta, $alias, $orig ) = @_;
     my $method = $meta->find_method_by_name($orig);
     if (!$method) {
         $method = $meta->find_method_by_name($alias);
@@ -100,7 +99,7 @@ sub alias {
     $meta->add_method(
         $alias => _get_method_metaclass($method)->wrap(
             sub { shift->$orig(@_) }, # goto $_[0]->can($orig) ?
-            package_name => $caller,
+            package_name => $meta->name,
             name         => $alias,
             aliased_from => $orig
         )
