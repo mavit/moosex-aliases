@@ -1,5 +1,5 @@
 package MooseX::Aliases;
-use Moose::Exporter;
+use MooseX::MethodTraits;
 use Scalar::Util qw(blessed);
 
 =head1 NAME
@@ -54,8 +54,26 @@ their aliased names.
 
 =cut
 
-Moose::Exporter->setup_import_methods(
-    with_meta                 => ['alias'],
+=head2 alias ALIAS METHODNAME
+
+Installs ALIAS as a method that is aliased to the method METHODNAME.
+
+=cut
+
+MooseX::MethodTraits->setup_import_methods(
+    with_traits               => {
+        alias => {
+            traits => ['MooseX::Aliases::Meta::Trait::Method'],
+            munge  => sub {
+                my $meta = shift;
+                my $alias_name = shift;
+                my $name = shift;
+                Carp::confess("Cannot find method $name to alias")
+                    unless $meta->find_method_by_name($name);
+                return sub { shift->$name(@_) }, { aliased_from => $name, @_ };
+            },
+        },
+    },
     attribute_metaclass_roles => ['MooseX::Aliases::Meta::Trait::Attribute'],
     constructor_class_roles   => ['MooseX::Aliases::Meta::Trait::Constructor'],
 );
@@ -75,36 +93,6 @@ sub _get_method_metaclass {
             cache        => 1,
         )->name;
     }
-}
-
-=head2 alias ALIAS METHODNAME
-
-Installs ALIAS as a method that is aliased to the method METHODNAME.
-
-=cut
-
-sub alias {
-    my ( $meta, $alias, $orig ) = @_;
-    my $method = $meta->find_method_by_name($orig);
-    if (!$method) {
-        $method = $meta->find_method_by_name($alias);
-        if ($method) {
-            Carp::cluck(
-                q["alias $from => $to" is deprecated, please use ]
-              . q["alias $to => $from"]
-            );
-            ($alias, $orig) = ($orig, $alias);
-        }
-    }
-    Moose->throw_error("Cannot find method $orig to alias") unless $method;
-    $meta->add_method(
-        $alias => _get_method_metaclass($method)->wrap(
-            sub { shift->$orig(@_) }, # goto $_[0]->can($orig) ?
-            package_name => $meta->name,
-            name         => $alias,
-            aliased_from => $orig
-        )
-    );
 }
 
 =head1 BUGS/CAVEATS
