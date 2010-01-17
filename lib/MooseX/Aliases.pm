@@ -1,4 +1,5 @@
 package MooseX::Aliases;
+use Moose ();
 use Moose::Exporter;
 use Scalar::Util qw(blessed);
 
@@ -54,12 +55,21 @@ their aliased names.
 
 =cut
 
-Moose::Exporter->setup_import_methods(
-    with_meta       => ['alias'],
+my %metaroles = $Moose::VERSION >= 0.9301
+    ? (
     class_metaroles => {
         attribute   => ['MooseX::Aliases::Meta::Trait::Attribute'],
         constructor => ['MooseX::Aliases::Meta::Trait::Constructor'],
-    },
+    }
+    )
+    : (
+    attribute_metaclass_roles => ['MooseX::Aliases::Meta::Trait::Attribute'],
+    constructor_class_roles => ['MooseX::Aliases::Meta::Trait::Constructor'],
+    );
+
+Moose::Exporter->setup_import_methods(
+    with_meta => ['alias'],
+    %metaroles,
 );
 
 sub _get_method_metaclass {
