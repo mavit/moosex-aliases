@@ -13,16 +13,13 @@ Moose::Util::meta_attribute_alias 'Aliased';
     has this => (
         isa   => 'Str',
         is    => 'rw',
-        traits => [qw(Aliased)],
         alias => 'that',
     );
 
 =head1 DESCRIPTION
 
 This trait adds the C<alias> option to attribute creation. It is automatically
-applied to all attributes when C<use MooseX::Aliases;> is run, but must be
-explicitly applied in roles, due to issues with Moose's handling of attributes
-in roles.
+applied to all attributes when C<use MooseX::Aliases;> is run.
 
 =cut
 

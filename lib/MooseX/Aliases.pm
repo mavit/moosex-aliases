@@ -32,7 +32,6 @@ or
     has this => (
         isa   => 'Str',
         is    => 'rw',
-        traits => [qw(Aliased)],
         alias => 'that',
     );
 
