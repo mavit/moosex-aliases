@@ -2,10 +2,7 @@ package MooseX::Aliases::Meta::Trait::Attribute;
 use Moose::Role;
 use Moose::Util::TypeConstraints;
 Moose::Util::meta_attribute_alias 'Aliased';
-
-=head1 NAME
-
-MooseX::Aliases::Meta::Trait::Attribute - attribute metaclass trait for L<MooseX::Aliases>
+# ABSTRACT: attribute metaclass trait for L<MooseX::Aliases>
 
 =head1 SYNOPSIS
 
@@ -83,22 +80,5 @@ around initialize_instance_slot => sub {
 };
 
 no Moose::Role;
-
-=head1 AUTHORS
-
-  Jesse Luehrs <doy at tozt dot net>
-
-  Chris Prather (chris@prather.org)
-
-  Justin Hunter <justin.d.hunter at gmail dot com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2009 by Jesse Luehrs.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
-
-=cut
 
 1;

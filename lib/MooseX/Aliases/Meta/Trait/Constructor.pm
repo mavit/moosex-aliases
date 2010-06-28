@@ -1,9 +1,6 @@
 package MooseX::Aliases::Meta::Trait::Constructor;
 use Moose::Role;
-
-=head1 NAME
-
-MooseX::Aliases::Meta::Trait::Constructor - constructor metaclass trait for L<MooseX::Aliases>
+# ABSTRACT: constructor metaclass trait for L<MooseX::Aliases>
 
 =head1 DESCRIPTION
 
@@ -47,22 +44,5 @@ around _generate_slot_initializer => sub {
 };
 
 no Moose::Role;
-
-=head1 AUTHORS
-
-  Jesse Luehrs <doy at tozt dot net>
-
-  Chris Prather (chris@prather.org)
-
-  Justin Hunter <justin.d.hunter at gmail dot com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2009 by Jesse Luehrs.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
-
-=cut
 
 1;

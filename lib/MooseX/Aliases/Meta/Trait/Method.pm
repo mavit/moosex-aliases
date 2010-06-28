@@ -1,9 +1,6 @@
 package MooseX::Aliases::Meta::Trait::Method;
 use Moose::Role;
-
-=head1 NAME
-
-MooseX::Aliases::Meta::Trait::Method - method metaclass trait for L<MooseX::Aliases>
+# ABSTRACT: method metaclass trait for L<MooseX::Aliases>
 
 =head1 DESCRIPTION
 
@@ -11,11 +8,7 @@ This trait adds an attribute to metaclasses of aliased methods, to track which m
 
 =cut
 
-=head1 METHODS
-
-=cut
-
-=head2 aliased_from
+=method aliased_from
 
 Returns the name of the method that this method is an alias of.
 
@@ -27,22 +20,5 @@ has aliased_from => (
 );
 
 no Moose::Role;
-
-=head1 AUTHORS
-
-  Jesse Luehrs <doy at tozt dot net>
-
-  Chris Prather (chris@prather.org)
-
-  Justin Hunter <justin.d.hunter at gmail dot com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2009 by Jesse Luehrs.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
-
-=cut
 
 1;
