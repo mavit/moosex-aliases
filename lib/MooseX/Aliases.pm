@@ -55,21 +55,15 @@ their aliased names.
 
 =cut
 
-my %metaroles = $Moose::VERSION >= 0.9301
-    ? (
+Moose::Exporter->setup_import_methods(
+    with_meta => ['alias'],
     class_metaroles => {
         attribute   => ['MooseX::Aliases::Meta::Trait::Attribute'],
         constructor => ['MooseX::Aliases::Meta::Trait::Constructor'],
-    }
-    )
-    : (
-    attribute_metaclass_roles => ['MooseX::Aliases::Meta::Trait::Attribute'],
-    constructor_class_roles => ['MooseX::Aliases::Meta::Trait::Constructor'],
-    );
-
-Moose::Exporter->setup_import_methods(
-    with_meta => ['alias'],
-    %metaroles,
+    },
+    role_metaroles => {
+        applied_attribute => ['MooseX::Aliases::Meta::Trait::Attribute'],
+    },
 );
 
 sub _get_method_metaclass {
