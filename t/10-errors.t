@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use Test::More tests => 3;
-use Test::Exception;
+use Test::Fatal;
 use Test::Moose;
 
 {
@@ -10,8 +10,8 @@ use Test::Moose;
     use Moose;
     use MooseX::Aliases;
 
-    ::throws_ok { alias foo => 'bar' } qr/^Cannot find method bar to alias/,
-        "aliasing a non-existent method gives an appropriate error";
+    ::like( ::exception { alias foo => 'bar' }, qr/^Cannot find method bar to alias/,
+        "aliasing a non-existent method gives an appropriate error");
 
     has foo => (
         is    => 'ro',
@@ -21,7 +21,7 @@ use Test::Moose;
 }
 
 with_immutable {
-    throws_ok { Foo->new(bar => 1, baz => 2) }
+    like( exception { Foo->new(bar => 1, baz => 2) },
               qr/^Conflicting init_args: \(bar, baz\)/,
-              "conflicting init_args give an appropriate error";
+              "conflicting init_args give an appropriate error");
 } 'Foo';
