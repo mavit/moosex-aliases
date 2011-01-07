@@ -114,10 +114,46 @@ a deprecation warning), unless you were relying on being able to override an
 existing method with an alias - this will now override in the other direction.
 The old argument order will be removed in a future release.
 
+=head1 BUGS
+
+No known bugs.
+
+Please report any bugs through RT: email
+C<bug-moosex-aliases at rt.cpan.org>, or browse to
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooseX-Aliases>.
+
 =head1 SEE ALSO
 
 L<Moose>
 L<Method::Alias>
+
+=head1 SUPPORT
+
+You can find this documentation for this module with the perldoc command.
+
+    perldoc MooseX::Aliases
+
+You can also look for information at:
+
+=over 4
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/MooseX-Aliases>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/MooseX-Aliases>
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooseX-Aliases>
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/MooseX-Aliases>
+
+=back
 
 =cut
 
