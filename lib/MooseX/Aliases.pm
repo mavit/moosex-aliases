@@ -47,18 +47,30 @@ their aliased names.
 
 =cut
 
+my %metaroles;
+if ($Moose::VERSION >= 1.9900) {
+    %metaroles = (
+        class_metaroles => {
+            attribute => ['MooseX::Aliases::Meta::Trait::Attribute'],
+            class     => ['MooseX::Aliases::Meta::Trait::Class'],
+        },
+        role_metaroles => {
+            applied_attribute => ['MooseX::Aliases::Meta::Trait::Attribute'],
+        }
+    );
+}
+else {
+    %metaroles = (
+        class_metaroles => {
+            attribute   => ['MooseX::Aliases::Meta::Trait::Attribute'],
+            constructor => ['MooseX::Aliases::Meta::Trait::Constructor'],
+        },
+    );
+}
+
 Moose::Exporter->setup_import_methods(
     with_meta => ['alias'],
-    class_metaroles => {
-        attribute   => ['MooseX::Aliases::Meta::Trait::Attribute'],
-        constructor => ['MooseX::Aliases::Meta::Trait::Constructor'],
-    },
-    ($Moose::VERSION >= 1.9900
-        ? (role_metaroles => {
-               applied_attribute => ['MooseX::Aliases::Meta::Trait::Attribute'],
-           })
-        : ()
-    ),
+    %metaroles,
 );
 
 sub _get_method_metaclass {
