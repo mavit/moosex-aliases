@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use Test::More tests => 6;
 use Test::Moose;
+use Test::Requires { Moose => 1.9900 };
 
 my ($foo_called, $baz_called, $run_called);
 

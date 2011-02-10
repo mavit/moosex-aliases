@@ -53,9 +53,12 @@ Moose::Exporter->setup_import_methods(
         attribute   => ['MooseX::Aliases::Meta::Trait::Attribute'],
         constructor => ['MooseX::Aliases::Meta::Trait::Constructor'],
     },
-    role_metaroles => {
-        applied_attribute => ['MooseX::Aliases::Meta::Trait::Attribute'],
-    },
+    ($Moose::VERSION >= 1.9900
+        ? (role_metaroles => {
+               applied_attribute => ['MooseX::Aliases::Meta::Trait::Attribute'],
+           })
+        : ()
+    ),
 );
 
 sub _get_method_metaclass {
