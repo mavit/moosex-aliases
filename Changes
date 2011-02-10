@@ -5,6 +5,7 @@ Revision history for MooseX-Aliases
       - New Dist::Zilla stuff.
       - The test suite now uses Test::Fatal instead of Test::Exception (Karen
         Etheridge).
+      - Forward compat for Moose inlining changes
 
 0.08  2010-01-17
       - Fix metarole usage for new role metarole interface (autarch).
